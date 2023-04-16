@@ -16,9 +16,14 @@ INSERT INTO `leagues` (`league_id`, `name`) VALUES (5, 'aperiam');
 #
 
 INSERT INTO `formations` (`id`, `name`) VALUES (1, '2-1-1');
-INSERT INTO `formations` (`id`, `name`) VALUES (2, '2-2');
-INSERT INTO `formations` (`id`, `name`) VALUES (3, '1-1-2');
-INSERT INTO `formations` (`id`, `name`) VALUES (4, '1-2-1');
+INSERT INTO `formations` (`id`, `name`) VALUES (2, '2-2 (Classic)');
+INSERT INTO `formations` (`id`, `name`) VALUES (3, '2-2 (Double FW)');
+INSERT INTO `formations` (`id`, `name`) VALUES (4, '1-1-2');
+INSERT INTO `formations` (`id`, `name`) VALUES (5, '1-2-1');
+INSERT INTO `formations` (`id`, `name`) VALUES (6, '1-3 (Classic)');
+INSERT INTO `formations` (`id`, `name`) VALUES (7, '1-3 (Double FW)');
+INSERT INTO `formations` (`id`, `name`) VALUES (8, '3-1');
+
 
 
 #
