@@ -28,3 +28,20 @@ CREATE VIEW `team_stats` AS
         JOIN `teams` `t` ON ((`p`.`team` = `t`.`teamid`)))
     GROUP BY `p`.`team` , `t`.`name`
     ORDER BY `t`.`name` ASC;
+    
+    
+    # player_named_stats view
+    
+    CREATE VIEW `player_named_stats` AS
+    SELECT 
+        `p`.`firstname` AS `firstname`,
+        `p`.`lastname` AS `lastname`,
+        `p_s`.`player_id` AS `player_id`,
+        `p_s`.`goals` AS `goals`,
+        `p_s`.`assists` AS `assists`,
+        `p_s`.`saves` AS `saves`,
+        `p_s`.`tackles` AS `tackles`
+    FROM
+        (`players` `p`
+        JOIN `player_stats` `p_s` ON ((`p`.`player_id` = `p_s`.`player_id`)))
+    ORDER BY `p`.`firstname` , `p`.`lastname`
