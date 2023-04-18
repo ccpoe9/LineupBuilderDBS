@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TeamService } from '../team.service';
 
 @Component({
   selector: 'app-myteam',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class MyteamComponent {
 
+  constructor(private teamservice : TeamService){}
+
+  ngOnInit(){
+    this.getFormations();
+  }
+
+  getFormations(){
+    this.teamservice.getFormations()
+    .subscribe( data => {
+      console.log(data);
+    })
+  }
 }

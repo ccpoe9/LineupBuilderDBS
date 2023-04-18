@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MyteamComponent } from './myteam/myteam.component';
 import { FindComponent } from './find/find.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

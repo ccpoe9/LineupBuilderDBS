@@ -1,15 +1,15 @@
 
 <nav class="navbar  bg-success navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">LINEUP BUILDER</a>
+    <img src="/assets/lineupbuilder.png" alt="" style="width:4rem; height:3rem;">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="myteam">My Team</a>
-        <a class="nav-link" href="leaderboard">Leaderboard</a>
-        <a class="nav-link" href="find">Player Lookup</a>
+        <a class="nav-link" [ngClass]="{'active' : currentPage == '/myteam'}" aria-current="page" href="myteam">My Team</a>
+        <a class="nav-link" [ngClass]="{'active' : currentPage == '/leaderboard'}" href="leaderboard">Leaderboard</a>
+        <a class="nav-link" [ngClass]="{'active' : currentPage == '/find'}" href="find">Player Lookup</a>
       </div>
     </div>
   </div>
