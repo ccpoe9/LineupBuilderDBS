@@ -19,3 +19,10 @@ export async function sortPlayersByStat(stat_type) {}
 export async function sortPlayersByDescStat(stat_type) {}
 
 export async function showPlayersByPosition(positon_id) {}
+
+export async function sortTeamsByStat(stat_type,order) {
+    const [rows] = await pool.query(`SELECT \`Team Name\`, 
+    ? FROM lineupbuilder.team_stats
+ORDER BY \`Total Goals\` ?`, [stat_type,order])
+    return rows
+}
