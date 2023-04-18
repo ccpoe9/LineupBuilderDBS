@@ -52,6 +52,16 @@ export async function getTeam(teamid) {
     return rows[0]
 }
 
+export async function getPlayersOfTeam(teamid) {
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM players
+    WHERE team = ?
+    ORDER BY players.position
+    `, [teamid])
+    return rows
+}
+
 export async function getAllFormations() {
     const [rows] = await pool.query("SELECT * FROM formations")
     return rows

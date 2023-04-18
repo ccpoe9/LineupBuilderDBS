@@ -47,6 +47,13 @@ app.get("/teams/:id", async (req, res) => {
     res.send(team)
 })
 
+// Get a json struct of a single team's roster
+app.get("/teams/:id/players", async (req, res) => {
+    const id = req.params.id
+    const team = await dbRead.getPlayersOfTeam(id)
+    res.send(team)
+})
+
 // Get a json struct of all formation data
 app.get("/formations", async (req, res) => {
     const formations = await dbRead.getAllFormations()
