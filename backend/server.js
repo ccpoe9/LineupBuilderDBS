@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import * as dbRead from './database_reads.js';
 import * as dbWrite from './database_writes.js';
+import * as dbLeaderboard from './database_leaderboard.js';
 
 dotenv.config();
 
