@@ -14,24 +14,8 @@ export async function sortPlayersByAlphabeticalOrder() {}
 
 export async function sortPlayersByDescAlphabeticalOrder() {}
 
-export async function sortPlayersByRating() {}
+export async function sortPlayersByStat(stat_type) {}
 
-export async function sortPlayersByDescRating() {}
-
-export async function sortPlayersBySaveCount() {}
-
-export async function sortPlayersByDescSaveCount() {}
-
-export async function sortPlayersByTackleCount() {}
-
-export async function sortPlayersByDescTackleCount() {}
-
-export async function sortPlayersByAssistCount() {}
-
-export async function sortPlayersByDescAssistCount() {}
-
-export async function sortPlayersByGoalCount() {}
-
-export async function sortPlayersByDescGoalCount() {}
+export async function sortPlayersByDescStat(stat_type) {}
 
 export async function showPlayersByPosition(positon_id) {}
