@@ -18,4 +18,21 @@ export class TeamService {
         return throwError(err);
       }));
   }
+
+  getLeagues(){
+    return this.http.get<any[]>(Config.APIROOT+Config.APIURLS.LEAGUES).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(err);
+      }));
+  }
+
+
+  createTeam(newTeam : any){
+    return this.http.post<any[]>(Config.APIROOT+Config.APIURLS.TEAMS, newTeam).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(err);
+      }));
+  }
 }

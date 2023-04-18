@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { MyteamComponent } from './myteam/myteam.component';
 import { FindComponent } from './find/find.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +18,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

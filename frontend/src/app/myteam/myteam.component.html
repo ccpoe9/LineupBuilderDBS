@@ -1,34 +1,28 @@
 <div class="page-content px-3 mt-3">
-  <div class="team-create mb-3">
+  <div class="team-create mb-3" *ngIf="!teamCreated">
     <form>
       <div class="mb-3">
         <label for="exampleInputTeamName1" class="form-label">TeamName</label>
-        <input type="text" class="form-control" id="exampleInputTeamName1">
+        <input type="text" class="form-control" id="exampleInputTeamName1" name="TeamName" [(ngModel)]="newTeam.teamName">
       </div>
       <div class="mb-3">
         <label for="exampleInputFormation1" class="form-label">Formation (GK Already Included)</label>
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="newTeam.formation" name="Formation">
               <option selected>...</option>
-              <option value="1">GK | DF DF | MF FW (classic)</option>
-              <option value="2">GK | DF DF | FW FW (double fwd variant)</option>
-              <option value="3">GK | DF | MF MF FW (classic)</option>
-              <option value="4">GK | DF | MF FW FW (double fwd variant)</option>
-              <option value="5">GK | DF DF DF | FW</option>
-              <option value="6">GK | DF DF | MF | FW</option>
-              <option value="7">GK | DF | MF MF | FW</option>
-              <option value="8">GK | DF | MF | FW FW</option>
+              <option value="{{formation.id}}" *ngFor="let formation of formations" [ngValue]="formation.id">{{formation.name}}</option>
         </select>
       </div>
       <div class="mb-3">
-        <div class="w-50">
-          <label for="exampleInputTeamName1" class="form-label">Coach</label>
-          <input type="text" class="form-control" id="exampleInputTeamName1">
-        </div>
+        <label for="exampleInputFormation1" class="form-label">League</label>
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="newTeam.league" name="League">
+              <option selected>...</option>
+              <option value="{{league.league_id}}" *ngFor="let league of leagues" [ngValue]="league.league_id">{{league.name}}</option>
+        </select>
       </div>
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button type="submit" class="btn btn-primary" (click)="CreateTeam()">Create</button>
     </form>
   </div>
-  <div class="team-info mb-3">
+  <div class="team-info mb-3" *ngIf="teamCreated">
     <h1>
       My Team
     </h1>
@@ -36,51 +30,51 @@
       <div class="col-2">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">John Doe</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">GK</h6>
-            <p class="card-text">Rating: 7</p>
+            <h5 class="card-title">{{playerSlots[0].playerName}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{playerSlots[0].position}}</h6>
+            <p class="card-text">Rating: {{playerSlots[0].Rating}}</p>
           </div>
         </div>
       </div>
       <div class="col-2">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">John Doe</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">GK</h6>
-            <p class="card-text">Rating: 7</p>
+            <h5 class="card-title">{{playerSlots[1].playerName}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{playerSlots[1].position}}</h6>
+            <p class="card-text">Rating: {{playerSlots[1].Rating}}</p>
           </div>
         </div>
       </div>
       <div class="col-2">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">John Doe</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">GK</h6>
-            <p class="card-text">Rating: 7</p>
+            <h5 class="card-title">{{playerSlots[2].playerName}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{playerSlots[2].position}}</h6>
+            <p class="card-text">Rating: {{playerSlots[2].Rating}}</p>
           </div>
         </div>
       </div>
       <div class="col-2">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">John Doe</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">GK</h6>
-            <p class="card-text">Rating: 7</p>
+            <h5 class="card-title">{{playerSlots[3].playerName}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{playerSlots[3].position}}</h6>
+            <p class="card-text">Rating: {{playerSlots[3].Rating}}</p>
           </div>
         </div>
       </div>
       <div class="col-2">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">John Doe</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">GK</h6>
-            <p class="card-text">Rating: 7</p>
+            <h5 class="card-title">{{playerSlots[4].playerName}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{playerSlots[4].position}}</h6>
+            <p class="card-text">Rating: {{playerSlots[4].Rating}}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="coach-info mb-3">
+  <div class="coach-info mb-3" *ngIf="teamCreated">
     <h1>
       My Coach
     </h1>
@@ -95,7 +89,7 @@
       </div>
     </div>
   </div>
-  <div class="edit-info">
+  <div class="edit-info" *ngIf="teamCreated">
     <h1>
       Edit Players
     </h1>
