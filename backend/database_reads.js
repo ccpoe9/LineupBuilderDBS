@@ -52,6 +52,24 @@ export async function getTeam(teamid) {
     return rows[0]
 }
 
+export async function getTeamRating(teamid) {
+    const [rows] = await pool.query(`
+    SELECT * 
+    FROM lineupbuilder.team_ratings
+    WHERE teamid = ?
+    `, [teamid])
+    return rows[0]
+}
+
+export async function getTeamStats(teamid) {
+    const [rows] = await pool.query(`
+    SELECT * 
+    FROM lineupbuilder.team_stats
+    WHERE teamid = ?
+    `, [teamid])
+    return rows[0]
+}
+
 export async function getPlayersOfTeam(teamid) {
     const [rows] = await pool.query(`
     SELECT *

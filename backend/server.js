@@ -1,8 +1,8 @@
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import * as dbRead from './database_reads.js';
 import * as dbWrite from './database_writes.js';
-import cors from 'cors';
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use(cors({
     origin: '*'
-  }));
+}));
 
 // Get a json struct of all player data
 app.get("/players", async (req, res) => {
@@ -56,6 +56,20 @@ app.get("/teams/:id", async (req, res) => {
 app.get("/teams/:id/players", async (req, res) => {
     const id = req.params.id
     const team = await dbRead.getPlayersOfTeam(id)
+    res.send(team)
+})
+
+// Get a json struct of a single team's rating
+app.get("/teams/:id/rating", async (req, res) => {
+    const id = req.params.id
+    const team = await dbRead.getTeamRating(id)
+    res.send(team)
+})
+
+// Get a json struct of a single team's stats
+app.get("/teams/:id/stats", async (req, res) => {
+    const id = req.params.id
+    const team = await dbRead.getTeamStats(id)
     res.send(team)
 })
 
