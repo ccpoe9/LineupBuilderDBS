@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'app-find',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./find.component.scss']
 })
 export class FindComponent {
+
+  constructor( private playerservice : PlayerService){}
+
+  
 
 }

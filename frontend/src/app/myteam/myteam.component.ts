@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TeamService } from '../team.service';
 import { switchMap } from 'rxjs';
+import { PlayerService } from '../player.service';
 
 @Component({
   selector: 'app-myteam',
@@ -9,10 +10,22 @@ import { switchMap } from 'rxjs';
 })
 export class MyteamComponent {
 
-  constructor(private teamservice : TeamService){}
+  constructor(private teamservice : TeamService, private playersevice : PlayerService){}
 
   formations : any[] = [];
   leagues : any[] = [];
+  players : any[] = [];
+  coaches : any[] = [];
+
+  slotValue : number = 0;
+  slotPlayerName : string = "";
+
+  slotCoachName : string = "";
+
+  coachSlot = {
+    Name : "<empty slot>",
+    Team : ""
+  }
 
   playerSlots = [
     {
@@ -63,19 +76,35 @@ export class MyteamComponent {
     }))
     .subscribe( data => {
       this.leagues = data;
-      console.log(this.leagues);
     })
   }
 
   CreateTeam(){
+    this.coachSlot.Team = this.newTeam.teamName;
     this.teamservice.createTeam(this.newTeam)
-    .subscribe( () => {
+    .pipe(switchMap ( () => {
       this.teamCreated = true;
       this.setTeamFormation(this.newTeam.formation);
       localStorage.setItem('created' , 'true');
+      return this.playersevice.getAllPlayers();
+    }))
+    .pipe( switchMap( data => {
+      this.players = data;
+      return this.playersevice.getAllCoaches();
+    }))
+    .subscribe( data => {
+      this.coaches = data;
     })
   }
 
+  setSlot(){
+    this.playerSlots[this.slotValue - 1].playerName = this.slotPlayerName;
+    this.playerSlots[this.slotValue - 1].Rating = this.players.find( player => this.slotPlayerName.includes(player.firstname)).rating;
+  }
+
+  setCoachSlot(){
+    this.coachSlot.Name = this.slotCoachName;
+  }
 
   setTeamFormation(formation : number){
     let formationName = this.formations.find(form => form.id == formation).name;
@@ -127,7 +156,6 @@ export class MyteamComponent {
         this.playerSlots[i].position = positions[i];
       }
     }
-
   }
 
 
