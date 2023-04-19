@@ -12,16 +12,16 @@ CREATE VIEW `team_ratings` AS
     GROUP BY `teams`.`teamid` , `teams`.`name` , `teams`.`league`
     ORDER BY 'Team Rating' DESC;
     
-    
-    # team_stats view
+# team_stats view
     
 CREATE VIEW `team_stats` AS
     SELECT 
         `p`.`team` AS `teamid`,
         `t`.`name` AS `Team Name`,
         SUM(`p_s`.`goals`) AS `Total Goals`,
-        SUM(`p_s`.`saves`) AS `Total Saves`,
-        SUM(`p_s`.`tackles`) AS `Total Tackles`
+        SUM(`p_s`.`assists`) AS `Total Assists`,
+        SUM(`p_s`.`tackles`) AS `Total Tackles`,
+        SUM(`p_s`.`saves`) AS `Total Saves`
     FROM
         ((`player_stats` `p_s`
         JOIN `players` `p` ON ((`p_s`.`player_id` = `p`.`player_id`)))
@@ -29,10 +29,9 @@ CREATE VIEW `team_stats` AS
     GROUP BY `p`.`team` , `t`.`name`
     ORDER BY `t`.`name` ASC;
     
+# player_named_stats view
     
-    # player_named_stats view
-    
-    CREATE VIEW `player_named_stats` AS
+CREATE VIEW `player_named_stats` AS
     SELECT 
         `p`.`firstname` AS `firstname`,
         `p`.`lastname` AS `lastname`,
