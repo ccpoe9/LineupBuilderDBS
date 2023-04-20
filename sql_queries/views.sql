@@ -81,12 +81,15 @@ END; //
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE GetTeamsWithStats()
+CREATE PROCEDURE GetTeamsWithStats(
+    IN orderBy VARCHAR(20),
+    IN orderDir VARCHAR(20)
+)
 BEGIN
 	SELECT 
         `p`.`team` AS `teamid`,
         `t`.`name` AS `TeamName`,
-        `t_r`.`Team Rating` AS `Team Rating`,
+        `t_r`.`Team Rating` AS `TeamRating`,
         SUM(`p_s`.`goals`) AS `TotalGoals`,
         SUM(`p_s`.`assists`) AS `TotalAssists`,
         SUM(`p_s`.`tackles`) AS `TotalTackles`,
@@ -97,7 +100,19 @@ BEGIN
         JOIN `teams` `t` ON ((`p`.`team` = `t`.`teamid`)))
         JOIN `lineupbuilder`.`team_ratings` `t_r` ON  ((`t.teamid` = `t_r`.`teamid`))
     GROUP BY `p`.`team` , `t`.`name`, `t_r`.`Team Rating`
-    ORDER BY `t`.`name` ASC;
+    ORDER BY 
+		(CASE WHEN orderBy = 'name' AND orderDir='ASC' THEN TeamName END) ASC,
+        (CASE WHEN orderBy = 'name' AND orderDir='DESC' THEN TeamName END) DESC,
+        (CASE WHEN orderBy = 'rating' AND orderDir='ASC' THEN TeamRating END) ASC,
+        (CASE WHEN orderBy = 'rating' AND orderDir='DESC' THEN TeamRating END) DESC,
+        (CASE WHEN orderBy = 'goals' AND orderDir='ASC' THEN TotalGoals END) ASC,
+        (CASE WHEN orderBy = 'goals' AND orderDir='DESC' THEN TotalGoals END) DESC,
+        (CASE WHEN orderBy = 'assists' AND orderDir='ASC' THEN TotalAssists END) ASC,
+        (CASE WHEN orderBy = 'assists' AND orderDir='DESC' THEN TotalAssists END) DESC,
+        (CASE WHEN orderBy = 'tackles' AND orderDir='ASC' THEN TotalTackles END) ASC,
+        (CASE WHEN orderBy = 'tackles' AND orderDir='DESC' THEN TotalTackles END) DESC,
+        (CASE WHEN orderBy = 'saves' AND orderDir='ASC' THEN TotalSaves END) ASC,
+        (CASE WHEN orderBy = 'saves' AND orderDir='DESC' THEN TotalSaves END) DESC;
 END; //
 
 DELIMITER ;
