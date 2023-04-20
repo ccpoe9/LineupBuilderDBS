@@ -35,4 +35,12 @@ export class TeamService {
         return throwError(err);
       }));
   }
+
+  getAllTeamsWithStats(){
+    return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.TEAMSTATS).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(err);
+      }));
+  }
 }

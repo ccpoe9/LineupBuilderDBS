@@ -6,7 +6,9 @@ export class Config{
         FORMATIONS : "/formations",
         LEAGUES : "/leagues",
         TEAMS : "/teams",
+        TEAMSTATS : "/teams/stats",
         PLAYERS : "/players",
+        PLAYERSTATS : "/players/stats",
         COACHES : "/coaches"
     }
 }

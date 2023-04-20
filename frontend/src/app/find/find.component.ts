@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../player.service';
 
 @Component({
@@ -6,10 +6,25 @@ import { PlayerService } from '../player.service';
   templateUrl: './find.component.html',
   styleUrls: ['./find.component.scss']
 })
-export class FindComponent {
+export class FindComponent implements OnInit{
 
   constructor( private playerservice : PlayerService){}
 
+  players : any[] = [];
+
+  sortBySelected = 'A-Z';
+
+  ngOnInit() {
+    this.getAllPlayersWithStats();
+  }
+
+
+  getAllPlayersWithStats(){
+    this.playerservice.getAllPlayersWithStats().subscribe( data => {
+      this.players = data[0];
+    });
+  }
+  
   
 
 }

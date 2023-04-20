@@ -3,11 +3,11 @@
     <div class="sort-header mb-4 d-flex justify-content-between">
         <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              SortBy
+              {{sortBySelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">A-Z</a></li>
-              <li><a class="dropdown-item" href="#">Z-A</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'A-Z'">A-Z</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Z-A'">Z-A</a></li>
             </ul>
         </div>
         <div class="btn-group">
@@ -83,49 +83,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
+              <tr *ngFor="let player of players">
+                <th scope="row">{{player.player_id}}</th>
+                <td>{{player.firstname}}</td>
+                <td>{{player.lastname}}</td>
                 <td>GK</td>
-                <td>6</td>
-                <td>0</td>
-                <td>0</td>
-                <td>1</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>GK</td>
-                <td>6</td>
-                <td>0</td>
-                <td>0</td>
-                <td>1</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>GK</td>
-                <td>6</td>
-                <td>0</td>
-                <td>0</td>
-                <td>1</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>GK</td>
-                <td>6</td>
-                <td>0</td>
-                <td>0</td>
-                <td>1</td>
-                <td>5</td>
+                <td>{{player.rating}}</td>
+                <td>{{player.goals}}</td>
+                <td>{{player.assists}}</td>
+                <td>{{player.tackles}}</td>
+                <td>{{player.saves}}</td>
               </tr>
             </tbody>
           </table>

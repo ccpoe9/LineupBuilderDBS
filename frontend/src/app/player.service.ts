@@ -18,6 +18,14 @@ export class PlayerService {
       }));
   }
 
+  getAllPlayersWithStats(){
+    return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.PLAYERSTATS).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(err);
+      }));
+  }
+
   getAllCoaches(){
     return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.COACHES).pipe(
       catchError((err) => {

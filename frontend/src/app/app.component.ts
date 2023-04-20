@@ -21,5 +21,8 @@ export class AppComponent {
             });
   }
 
-
+  reset(){
+    localStorage.clear();
+    location.reload();
+  }
 }

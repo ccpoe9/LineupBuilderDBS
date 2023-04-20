@@ -3,14 +3,14 @@
     <div class="sort-header mb-4 d-flex justify-content-between">
         <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              SortBy
+              {{sortBySelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Highest/Lowest Rated Teams</a></li>
-              <li><a class="dropdown-item" href="#">Best/Worst Attacking Teams</a></li>
-              <li><a class="dropdown-item" href="#">Best/Worst Defending Teams</a></li>
-              <li><a class="dropdown-item" href="#">Alphabetical order by team name</a></li>
-              <li><a class="dropdown-item" href="#">Reverse alphabetical order by team name</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Highest/Lowest Rated Teams'">Highest/Lowest Rated Teams</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Best/Worst Attacking Teams'">Best/Worst Attacking Teams</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Best/Worst Defending Teams'">Best/Worst Defending Teams</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Alphabetical order by team name'">Alphabetical order by team name</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Reverse alphabetical order by team name'">Reverse alphabetical order by team name</a></li>
             </ul>
         </div>
     </div>
@@ -27,13 +27,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Rising Tigers</td>
-                <td>100</td>
-                <td>100</td>
-                <td>3</td>
-                <td>45</td>
+              <tr *ngFor="let team of teams">
+                <th scope="row">{{team.teamid}}</th>
+                <td>{{team.TeamName}}</td>
+                <td>{{team.TotalGoals}}</td>
+                <td>{{team.TotalAssists}}</td>
+                <td>{{team.TotalSaves}}</td>
+                <td>{{team.TotalTackles}}</td>
               </tr>
             </tbody>
           </table>

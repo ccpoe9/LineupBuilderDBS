@@ -24,6 +24,12 @@ app.get("/players", async (req, res) => {
     res.send(players)
 })
 
+// Get a json struct of all player data
+app.get("/players/stats", async (req, res) => {
+    const players = await dbRead.getAllPlayersWithStats()
+    res.send(players)
+})
+
 // Get a json struct of a single player's data
 app.get("/players/:id", async (req, res) => {
     const id = req.params.id
@@ -47,6 +53,12 @@ app.get("/coaches/:id", async (req, res) => {
 // Get a json struct of all team data
 app.get("/teams", async (req, res) => {
     const teams = await dbRead.getAllTeams()
+    res.send(teams)
+})
+
+// Get a json struct of all team data
+app.get("/teams/stats", async (req, res) => {
+    const teams = await dbRead.getAllTeamsWithStats()
     res.send(teams)
 })
 

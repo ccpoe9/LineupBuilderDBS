@@ -15,6 +15,11 @@ export async function getAllPlayers() {
     return rows
 }
 
+export async function getAllPlayersWithStats() {
+    const [rows] = await pool.query("CALL GetPlayerWithStats();")
+    return rows
+}
+
 export async function getPlayer(player_id) {
     const [rows] = await pool.query(`
     SELECT * 
@@ -42,6 +47,12 @@ export async function getAllTeams() {
     const [rows] = await pool.query("SELECT * FROM teams")
     return rows
 }
+
+export async function getAllTeamsWithStats() {
+    const [rows] = await pool.query("CALL GetTeamsWithStats();")
+    return rows
+}
+
 
 export async function getTeam(teamid) {
     const [rows] = await pool.query(`

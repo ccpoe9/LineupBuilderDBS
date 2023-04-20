@@ -44,3 +44,45 @@ CREATE VIEW `player_named_stats` AS
         (`players` `p`
         JOIN `player_stats` `p_s` ON ((`p`.`player_id` = `p_s`.`player_id`)))
     ORDER BY `p`.`firstname` , `p`.`lastname`
+
+
+DELIMITER //
+CREATE PROCEDURE GetPlayerWithStats()
+BEGIN
+	SELECT 
+        `p`.`firstname` AS `firstname`,
+        `p`.`lastname` AS `lastname`,
+        `p_s`.`player_id` AS `player_id`,
+        `p_s`.`goals` AS `goals`,
+        `p_s`.`assists` AS `assists`,
+        `p_s`.`saves` AS `saves`,
+        `p_s`.`tackles` AS `tackles`
+    FROM
+        `players` `p`
+        JOIN `player_stats` `p_s` ON `p`.`player_id` = `p_s`.`player_id`
+    ORDER BY `p`.`firstname` , `p`.`lastname`;
+END; //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE GetTeamsWithStats()
+BEGIN
+	SELECT 
+        `p`.`team` AS `teamid`,
+        `t`.`name` AS `Team Name`,
+        SUM(`p_s`.`goals`) AS `TotalGoals`,
+        SUM(`p_s`.`assists`) AS `TotalAssists`,
+        SUM(`p_s`.`tackles`) AS `TotalTackles`,
+        SUM(`p_s`.`saves`) AS `TotalSaves`
+    FROM
+        ((`player_stats` `p_s`
+        JOIN `players` `p` ON ((`p_s`.`player_id` = `p`.`player_id`)))
+        JOIN `teams` `t` ON ((`p`.`team` = `t`.`teamid`)))
+    GROUP BY `p`.`team` , `t`.`name`
+    ORDER BY `t`.`name` ASC;
+END; //
+
+DELIMITER ;
+
+

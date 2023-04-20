@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { TeamService } from '../team.service';
 import { switchMap } from 'rxjs';
 import { PlayerService } from '../player.service';
-
 @Component({
   selector: 'app-myteam',
   templateUrl: './myteam.component.html',
@@ -16,44 +15,44 @@ export class MyteamComponent {
   leagues : any[] = [];
   players : any[] = [];
   coaches : any[] = [];
-
+  
   slotValue : number = 0;
   slotPlayerName : string = "";
-
+   
   slotCoachName : string = "";
-
+  
   coachSlot = {
     Name : "<empty slot>",
     Team : ""
   }
-
+ 
   playerSlots = [
     {
       playerName : "<empty slot>", 
       position : "None",
-      Rating : 0 
+      Rating : 0
     },
     {
       playerName : "<empty slot>", 
       position : "None",
-      Rating : 0 
+      Rating : 0
     },
     {
       playerName : "<empty slot>", 
       position : "None",
-      Rating : 0 
+      Rating : 0
     },
     {
       playerName : "<empty slot>", 
       position : "None",
-      Rating : 0 
+      Rating : 0
     },
     {
       playerName : "<empty slot>", 
       position : "None",
-      Rating : 0 
+      Rating : 0
     }
-]
+  ]
 
   newTeam = {
     teamName : "",
@@ -63,10 +62,21 @@ export class MyteamComponent {
 
   teamCreated : boolean = false;
 
-  ngOnInit(){
-    this.getFormations();
-    
+  async ngOnInit(){
+      this.getFormations();
   }
+
+  setAllItems(){
+      this.teamCreated = true;
+      this.coachSlot.Name = localStorage.getItem('coach') || '';
+      this.coachSlot.Team = localStorage.getItem('teams') || '';
+      this.setTeamFormation(Number(localStorage.getItem('formation')));
+      for(let i = 0; i < this.playerSlots.length ; i++){
+        this.playerSlots[i].playerName = localStorage.getItem('player' + i) || '';
+        this.playerSlots[i].Rating = Number(localStorage.getItem('rating' + i));
+      }
+  }
+
 
   getFormations(){
     this.teamservice.getFormations()
@@ -85,7 +95,6 @@ export class MyteamComponent {
     .pipe(switchMap ( () => {
       this.teamCreated = true;
       this.setTeamFormation(this.newTeam.formation);
-      localStorage.setItem('created' , 'true');
       return this.playersevice.getAllPlayers();
     }))
     .pipe( switchMap( data => {
@@ -99,7 +108,8 @@ export class MyteamComponent {
 
   setSlot(){
     this.playerSlots[this.slotValue - 1].playerName = this.slotPlayerName;
-    this.playerSlots[this.slotValue - 1].Rating = this.players.find( player => this.slotPlayerName.includes(player.firstname)).rating;
+    let rating = this.players.find( player => this.slotPlayerName.includes(player.firstname)).rating;
+    this.playerSlots[this.slotValue - 1].Rating = rating;
   }
 
   setCoachSlot(){
@@ -157,6 +167,7 @@ export class MyteamComponent {
       }
     }
   }
+
 
 
 }
