@@ -10,11 +10,10 @@ export class LeaderboardComponent implements OnInit{
 
   teams : any[] = [];
 
-  sortBySelected = "";
+  sortBySelected = "A-Z";
   constructor(private teamservice : TeamService){}
 
   ngOnInit(): void {
-    this.sortBySelected = "Alphabetical order by team name";
     this.getAllTeams();
   }
 

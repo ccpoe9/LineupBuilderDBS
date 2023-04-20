@@ -6,9 +6,18 @@
               {{sortBySelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Highest/Lowest Rated Teams'">Highest/Lowest Rated Teams</a></li>
-              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Alphabetical order by team name'">Alphabetical order by team name</a></li>
-              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Reverse alphabetical order by team name'">Reverse alphabetical order by team name</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Highest Rated Teams'">Highest Rated Teams</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Lowest Rated Teams'">Lowest Rated Teams</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'A-Z'">A-Z</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Z-A'">Z-A</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'">Most Goals</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'">Least Goals</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'">Most Assists</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'">Least Assists</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'">Most Tackles</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'">Least Tackles</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'">Most Saves</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'">Least Savess</a></li>
             </ul>
         </div>
     </div>
