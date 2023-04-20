@@ -48,8 +48,8 @@ export async function getAllTeams() {
     return rows
 }
 
-export async function getAllTeamsWithStats() {
-    const [rows] = await pool.query("CALL GetTeamsWithStats();")
+export async function getAllTeamsWithStats(orderBy, orderDir) {
+    const [rows] = await pool.query(`CALL GetTeamsWithStats('${orderBy}', '${orderDir}');`)
     return rows
 }
 
