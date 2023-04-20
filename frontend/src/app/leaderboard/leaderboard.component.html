@@ -6,9 +6,18 @@
               {{sortBySelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Highest/Lowest Rated Teams'">Highest/Lowest Rated Teams</a></li>
-              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Alphabetical order by team name'">Alphabetical order by team name</a></li>
-              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Reverse alphabetical order by team name'">Reverse alphabetical order by team name</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Highest Rated Teams'" (click)="changeSelected('Highest Rated Teams', 'rating', 'DESC')">Highest Rated Teams</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Lowest Rated Teams'" (click)="changeSelected('Lowest Rated Teams', 'rating', 'ASC')">Lowest Rated Teams</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'A-Z'" (click)="changeSelected('A-Z', 'name', 'ASC')">A-Z</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Z-A'" (click)="changeSelected('Z-A', 'name', 'DESC')" >Z-A</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Goals'" (click)="changeSelected('Most Goals','goals', 'DESC')">Most Goals</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Least Goals'" (click)="changeSelected('Least Goals','goals', 'ASC')">Least Goals</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Assists'" (click)="changeSelected('Most Assists','assists', 'DESC')">Most Assists</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Least Assists'" (click)="changeSelected('Least Assists','assists', 'ASC')">Least Assists</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Tackles'" (click)="changeSelected('Most Tackles','tackles', 'DESC')">Most Tackles</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Least Tackles'" (click)="changeSelected('Least Tackles','tackles', 'ASC')">Least Tackles</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Most Saves'" (click)="changeSelected('Most Saves','saves', 'DESC')">Most Saves</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Least Savess'" (click)="changeSelected('Least Saves','saves', 'ASC')">Least Saves</a></li>
             </ul>
         </div>
     </div>
@@ -18,6 +27,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">TeamName</th>
+                <th scope="col">TeamRating</th>
                 <th scope="col">Goals</th>
                 <th scope="col">Assists</th>
                 <th scope="col">Saves</th>
@@ -28,6 +38,7 @@
               <tr *ngFor="let team of teams">
                 <th scope="row">{{team.teamid}}</th>
                 <td>{{team.TeamName}}</td>
+                <td>{{team.TeamRating}}</td>
                 <td>{{team.TotalGoals}}</td>
                 <td>{{team.TotalAssists}}</td>
                 <td>{{team.TotalSaves}}</td>
