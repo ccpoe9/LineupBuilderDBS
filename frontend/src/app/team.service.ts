@@ -11,6 +11,8 @@ export class TeamService {
 
   constructor(private http : HttpClient) { }
 
+  queryParams : HttpParams = new HttpParams();
+
   getFormations(){
     return this.http.get<any[]>(Config.APIROOT+Config.APIURLS.FORMATIONS).pipe(
       catchError((err) => {
@@ -36,7 +38,8 @@ export class TeamService {
       }));
   }
 
-  getAllTeamsWithStats(){
+  getAllTeamsWithStats(orderBy : string, orderDir : string){
+    this.queryParams = new HttpParams().set('orderBy', orderBy).set('orderDir', orderDir);
     return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.TEAMSTATS).pipe(
       catchError((err) => {
         console.error(err);

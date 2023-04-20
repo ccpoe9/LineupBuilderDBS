@@ -11,6 +11,7 @@ export class LeaderboardComponent implements OnInit{
   teams : any[] = [];
 
   sortBySelected = "A-Z";
+
   constructor(private teamservice : TeamService){}
 
   ngOnInit(): void {
@@ -20,7 +21,14 @@ export class LeaderboardComponent implements OnInit{
 
 
   getAllTeams(){
-    this.teamservice.getAllTeamsWithStats().subscribe( data => {
+    this.teamservice.getAllTeamsWithStats('name', 'ASC').subscribe( data => {
+      this.teams = data[0];
+    });
+  }
+
+  changeSelected(newValue : string, orderBy : string, orderDir : string){
+    this.sortBySelected = newValue;
+    this.teamservice.getAllTeamsWithStats(orderBy, orderDir).subscribe( data => {
       this.teams = data[0];
     });
   }
