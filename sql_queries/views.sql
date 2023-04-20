@@ -49,25 +49,20 @@ CREATE VIEW `player_named_stats` AS
     ORDER BY `p`.`firstname` , `p`.`lastname`;
 
 
+-- --------------------------
+-- STORED PROCEDURES
+-- --------------------------
+
+
 DELIMITER //
 CREATE PROCEDURE GetPlayerWithStats(
 	IN orderBy VARCHAR(20),
     IN orderDir VARCHAR(20)
     )
 BEGIN
-	SELECT 
-        `p`.`firstname` AS `firstname`,
-        `p`.`lastname` AS `lastname`,
-        `p`.`position` AS `position`,
-        `p`.`rating` AS `rating`,
-        `p_s`.`player_id` AS `player_id`,
-        `p_s`.`goals` AS `goals`,
-        `p_s`.`assists` AS `assists`,
-        `p_s`.`saves` AS `saves`,
-        `p_s`.`tackles` AS `tackles`
+	SELECT *
     FROM
-        `players` `p`
-        JOIN `player_stats` `p_s` ON `p`.`player_id` = `p_s`.`player_id`
+        `player_named_stats`
     ORDER BY 
 		(CASE WHEN orderBy = 'lastname' AND orderDir='ASC' THEN lastname END) ASC,
         (CASE WHEN orderBy = 'lastname' AND orderDir='DESC' THEN lastname END) DESC,
@@ -91,6 +86,7 @@ BEGIN
 	SELECT 
         `p`.`team` AS `teamid`,
         `t`.`name` AS `TeamName`,
+        `t_r`.`Team Rating` AS `Team Rating`,
         SUM(`p_s`.`goals`) AS `TotalGoals`,
         SUM(`p_s`.`assists`) AS `TotalAssists`,
         SUM(`p_s`.`tackles`) AS `TotalTackles`,
@@ -99,7 +95,8 @@ BEGIN
         ((`player_stats` `p_s`
         JOIN `players` `p` ON ((`p_s`.`player_id` = `p`.`player_id`)))
         JOIN `teams` `t` ON ((`p`.`team` = `t`.`teamid`)))
-    GROUP BY `p`.`team` , `t`.`name`
+        JOIN `lineupbuilder`.`team_ratings` `t_r` ON  ((`t.teamid` = `t_r`.`teamid`))
+    GROUP BY `p`.`team` , `t`.`name`, `t_r`.`Team Rating`
     ORDER BY `t`.`name` ASC;
 END; //
 
