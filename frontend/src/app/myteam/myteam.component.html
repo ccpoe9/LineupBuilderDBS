@@ -94,6 +94,7 @@
               <option value="1" *ngFor="let coach of coaches" [ngValue]="coach.firstname + ' ' + coach.lastname">{{coach.firstname}} {{coach.lastname}}</option>
         </select>
         <button type="submit" class="btn btn-primary" (click)="setCoachSlot()">Save</button>
+        <button type="submit" class="btn btn-danger" (click)="DeleteCoach()">Delete</button>
       </div>
     </div>
   </div>
@@ -106,11 +107,11 @@
         <label for="exampleInputFormation1" class="form-label">Slots</label>
         <select class="form-select" aria-label="Default select example" [(ngModel)]="slotValue" name="slotValue">
               <option selected>...</option>
-              <option value="1" [ngValue]="1">Slot 1</option>
-              <option value="2" [ngValue]="2">Slot 2</option>
-              <option value="3" [ngValue]="3">Slot 3</option>
-              <option value="4" [ngValue]="4">Slot 4</option>
-              <option value="5" [ngValue]="5">Slot 5</option>
+              <option value="1" [ngValue]="1" *ngIf="slotOpen[0]">Slot 1</option>
+              <option value="2" [ngValue]="2" *ngIf="slotOpen[1]">Slot 2</option>
+              <option value="3" [ngValue]="3" *ngIf="slotOpen[2]">Slot 3</option>
+              <option value="4" [ngValue]="4" *ngIf="slotOpen[3]">Slot 4</option>
+              <option value="5" [ngValue]="5" *ngIf="slotOpen[4]">Slot 5</option>
         </select>
       </div>
       <div class="mb-3">

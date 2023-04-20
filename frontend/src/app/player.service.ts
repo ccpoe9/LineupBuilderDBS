@@ -71,6 +71,15 @@ export class PlayerService {
       }));
   }
 
+  DeleteCoach(coachId : number){
+    this.queryParams = new HttpParams().set('coachid', coachId);
+    return this.http.delete(Config.APIROOT + Config.APIURLS.COACHES, { params : this.queryParams}).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(err);
+      }));
+  }
+
 
 
   

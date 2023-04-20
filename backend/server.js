@@ -72,7 +72,7 @@ app.get("/teams/:id", async (req, res) => {
 
 // Get a json struct of a single team's roster
 app.get("/teams/:id/players", async (req, res) => {
-    const id = req.params.id
+    const id = req.query.id
     const team = await dbRead.getPlayersOfTeam(id)
     res.send(team)
 })

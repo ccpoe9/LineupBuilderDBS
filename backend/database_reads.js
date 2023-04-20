@@ -86,7 +86,6 @@ export async function getPlayersOfTeam(teamid) {
     SELECT *
     FROM players
     WHERE team = ?
-    ORDER BY players.position
     `, [teamid])
     return rows
 }

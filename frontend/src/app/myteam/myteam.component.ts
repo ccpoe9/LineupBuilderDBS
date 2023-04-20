@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TeamService } from '../team.service';
-import { switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { PlayerService } from '../player.service';
 @Component({
   selector: 'app-myteam',
@@ -60,26 +60,12 @@ export class MyteamComponent {
     league : 0
   }
 
-  teamID : number = 0;;
-
+  teamID : number = 0;
+  slotOpen = [true, true, true, true, true];
   teamCreated : boolean = false;
 
   ngOnInit(){
-      if(localStorage.getItem('teamid')){
-        this.teamCreated = true;
-        this.teamID = Number(localStorage.getItem('teamid'));
-        this.getMyTeam();
-      }
-      else {
-        this.getFormations();
-      }
-      
-  }
-
-  getMyTeam(){
-    this.teamservice.getMyTeam(this.teamID).subscribe( data => {
-      console.log(data);
-    })
+    this.getFormations();      
   }
 
 
@@ -89,8 +75,38 @@ export class MyteamComponent {
       this.formations = data;
       return this.teamservice.getLeagues();
     }))
-    .subscribe( data => {
+    .pipe( switchMap( data => {
       this.leagues = data;
+      return this.playersevice.getAllPlayers();
+    }))
+    .pipe( switchMap( data => {
+      this.players = data;
+      return this.playersevice.getAllCoaches();
+    }))
+    .pipe(switchMap ( data => {
+      this.coaches = data;
+      if(localStorage.getItem('teamid')){
+        this.teamCreated = true;
+        this.teamID = Number(localStorage.getItem('teamid'));
+        this.setTeamFormation(Number(localStorage.getItem('formation')));
+        this.coachSlot.Team = localStorage.getItem('teamName') || '';
+        this.coachSlot.Name = localStorage.getItem('coach') || '';
+        if(localStorage.getItem('teamset')) this.slotOpen = [false, false, false, false, false];
+        return this.teamservice.getMyTeam(this.teamID);     
+      }
+      else{
+        return [];
+      }
+    }))
+    .subscribe( data => {
+      let players = data;
+      let i = 0;
+      while(i < this.playerSlots.length){
+        this.playerSlots[i].playerName = localStorage.getItem(String(i)) || '';
+        this.playerSlots[i].Rating = players.find( (player) => 
+        this.playerSlots[i].playerName.includes(player.firstname)).rating;
+        i++;
+      }
     })
   }
 
@@ -100,8 +116,10 @@ export class MyteamComponent {
     .pipe(switchMap ( (data) => {
       this.teamCreated = true;
       this.teamID = data.teamid;
-      localStorage.setItem('teamid', String(this.teamID))
+      localStorage.setItem('teamid', String(this.teamID));
+      localStorage.setItem('teamName', this.newTeam.teamName);
       this.setTeamFormation(this.newTeam.formation);
+      localStorage.setItem('formation', String(this.newTeam.formation));
       return this.playersevice.getAllPlayers();
     }))
     .pipe( switchMap( data => {
@@ -115,6 +133,9 @@ export class MyteamComponent {
 
   setSlot(){
     this.playerSlots[this.slotValue - 1].playerName = this.slotPlayerName;
+    this.slotOpen[this.slotValue - 1] = false;
+    if(this.slotOpen.indexOf(true) == -1) localStorage.setItem('teamset', 'true');
+    localStorage.setItem(String(this.slotValue - 1), this.slotPlayerName);
     let rating = this.players.find( player => this.slotPlayerName.includes(player.firstname)).rating;
     let id = this.players.find( player => this.slotPlayerName.includes(player.firstname)).player_id;
     this.playerSlots[this.slotValue - 1].Rating = rating;
@@ -124,6 +145,7 @@ export class MyteamComponent {
   setCoachSlot(){
     this.coachSlot.Name = this.slotCoachName;
     let id  = this.coaches.find( coach => this.slotCoachName.includes(coach.firstname)).coach_id;
+    localStorage.setItem('coach', this.coachSlot.Name);
     this.playersevice.changeCoachTeam(id, this.teamID).subscribe();
   }
 
@@ -177,6 +199,16 @@ export class MyteamComponent {
         this.playerSlots[i].position = positions[i];
       }
     }
+  }
+  
+  DeleteCoach(){
+    let coachId = this.coaches.find( coach => this.slotCoachName.includes(coach.firstname)).id;
+    this.playersevice.DeleteCoach(coachId).pipe( switchMap ( () => {
+      return this.playersevice.getAllCoaches();
+    }))
+    .subscribe( data => {
+      this.coaches = data;
+    })
   }
 
 
