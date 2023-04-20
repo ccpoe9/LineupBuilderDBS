@@ -90,7 +90,7 @@ export class MyteamComponent {
         this.teamID = Number(localStorage.getItem('teamid'));
         this.setTeamFormation(Number(localStorage.getItem('formation')));
         this.coachSlot.Team = localStorage.getItem('teamName') || '';
-        this.coachSlot.Name = localStorage.getItem('coach') || '';
+        this.coachSlot.Name = localStorage.getItem('coach') || '<empty slot>';
         if(localStorage.getItem('teamset')) this.slotOpen = [false, false, false, false, false];
         return this.teamservice.getMyTeam(this.teamID);     
       }
@@ -102,7 +102,7 @@ export class MyteamComponent {
       let players = data;
       let i = 0;
       while(i < this.playerSlots.length){
-        this.playerSlots[i].playerName = localStorage.getItem(String(i)) || '';
+        this.playerSlots[i].playerName = localStorage.getItem(String(i)) || '<empty slot>';
         this.playerSlots[i].Rating = players.find( (player) => 
         this.playerSlots[i].playerName.includes(player.firstname)).rating;
         i++;
@@ -202,7 +202,8 @@ export class MyteamComponent {
   }
   
   DeleteCoach(){
-    let coachId = this.coaches.find( coach => this.slotCoachName.includes(coach.firstname)).id;
+    console.log(this.slotCoachName);
+    let coachId = this.coaches.find( coach => this.slotCoachName.includes(coach.firstname)).coachid;
     this.playersevice.DeleteCoach(coachId).pipe( switchMap ( () => {
       return this.playersevice.getAllCoaches();
     }))

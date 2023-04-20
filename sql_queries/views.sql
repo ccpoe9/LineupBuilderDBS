@@ -29,7 +29,7 @@ CREATE VIEW `team_stats` AS
         JOIN `teams` `t` ON ((`p`.`team` = `t`.`teamid`)))
     GROUP BY `p`.`team` , `t`.`name`
     ORDER BY `t`.`name` ASC;
-    
+
 # player_named_stats view
     
 CREATE VIEW `player_named_stats` AS
