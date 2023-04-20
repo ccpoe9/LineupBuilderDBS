@@ -31,7 +31,7 @@ export class TeamService {
 
 
   createTeam(newTeam : any){
-    return this.http.post<any[]>(Config.APIROOT+Config.APIURLS.TEAMS, newTeam).pipe(
+    return this.http.post<any>(Config.APIROOT+Config.APIURLS.TEAMS, newTeam).pipe(
       catchError((err) => {
         console.error(err);
         return throwError(err);

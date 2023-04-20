@@ -60,10 +60,18 @@ export class MyteamComponent {
     league : 0
   }
 
+  teamID : number = 0;;
+
   teamCreated : boolean = false;
 
-  async ngOnInit(){
-      this.getFormations();
+  ngOnInit(){
+      if(localStorage.getItem('teamid')){
+
+      }
+      else {
+        this.getFormations();
+      }
+      
   }
 
   setAllItems(){
@@ -92,8 +100,10 @@ export class MyteamComponent {
   CreateTeam(){
     this.coachSlot.Team = this.newTeam.teamName;
     this.teamservice.createTeam(this.newTeam)
-    .pipe(switchMap ( () => {
+    .pipe(switchMap ( (data) => {
       this.teamCreated = true;
+      this.teamID = data.teamid;
+      localStorage.setItem('teamid', String(this.teamID))
       this.setTeamFormation(this.newTeam.formation);
       return this.playersevice.getAllPlayers();
     }))
@@ -109,7 +119,9 @@ export class MyteamComponent {
   setSlot(){
     this.playerSlots[this.slotValue - 1].playerName = this.slotPlayerName;
     let rating = this.players.find( player => this.slotPlayerName.includes(player.firstname)).rating;
+    let id = this.players.find( player => this.slotPlayerName.includes(player.firstname)).player_id;
     this.playerSlots[this.slotValue - 1].Rating = rating;
+    this.playersevice.changePlayerTeam(id, this.teamID).subscribe();
   }
 
   setCoachSlot(){
