@@ -98,7 +98,7 @@ BEGIN
         ((`player_stats` `p_s`
         JOIN `players` `p` ON ((`p_s`.`player_id` = `p`.`player_id`)))
         JOIN `teams` `t` ON ((`p`.`team` = `t`.`teamid`)))
-        JOIN `lineupbuilder`.`team_ratings` `t_r` ON  ((`t.teamid` = `t_r`.`teamid`))
+        JOIN `lineupbuilder`.`team_ratings` `t_r` ON  ((`t`.`teamid` = `t_r`.`teamid`))
     GROUP BY `p`.`team` , `t`.`name`, `t_r`.`Team Rating`
     ORDER BY 
 		(CASE WHEN orderBy = 'name' AND orderDir='ASC' THEN TeamName END) ASC,

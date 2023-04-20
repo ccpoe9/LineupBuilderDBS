@@ -27,6 +27,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">TeamName</th>
+                <th scope="col">TeamRating</th>
                 <th scope="col">Goals</th>
                 <th scope="col">Assists</th>
                 <th scope="col">Saves</th>
@@ -37,6 +38,7 @@
               <tr *ngFor="let team of teams">
                 <th scope="row">{{team.teamid}}</th>
                 <td>{{team.TeamName}}</td>
+                <td>{{team.TeamRating}}</td>
                 <td>{{team.TotalGoals}}</td>
                 <td>{{team.TotalAssists}}</td>
                 <td>{{team.TotalSaves}}</td>

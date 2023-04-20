@@ -40,7 +40,7 @@ export class TeamService {
 
   getAllTeamsWithStats(orderBy : string, orderDir : string){
     this.queryParams = new HttpParams().set('orderBy', orderBy).set('orderDir', orderDir);
-    return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.TEAMSTATS).pipe(
+    return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.TEAMSTATS, {params : this.queryParams}).pipe(
       catchError((err) => {
         console.error(err);
         return throwError(err);

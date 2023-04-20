@@ -30,6 +30,7 @@ export class LeaderboardComponent implements OnInit{
     this.sortBySelected = newValue;
     this.teamservice.getAllTeamsWithStats(orderBy, orderDir).subscribe( data => {
       this.teams = data[0];
+      console.log(this.teams);
     });
   }
 
