@@ -28,3 +28,12 @@ export async function createNewCoach(firstName, lastName, team) {
     const id = result.insertId
     return dbRead.getCoach(id)
 }
+
+export async function updatePlayerTeam(player_id, team) {
+    const [result] = await pool.query(`
+    UPDATE players
+    SET team = ?
+    WHERE player_id = ?
+    `, [team, player_id])
+    return dbRead.getPlayer(player_id)
+}

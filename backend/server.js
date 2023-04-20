@@ -171,6 +171,14 @@ app.post("/coaches", async (req, res) => {
     res.status(201).send(coach)
 })
 
+// Updates a player's currently set team
+// Will return a json struct with the id of the new team
+app.put("/players", async (req, res) => {
+    const { player_id, team } = req.body
+    const player = await dbWrite.updatePlayerTeam(player_id, team)
+    res.status(201).send(player)
+})
+
 /* 
     DB SORTS
 */
