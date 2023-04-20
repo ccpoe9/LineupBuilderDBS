@@ -6,12 +6,13 @@ CREATE VIEW `team_ratings` AS
         `teams`.`teamid` AS `teamid`,
         `teams`.`name` AS `name`,
         `teams`.`league` AS `league`,
-        AVG(`players`.`rating`) AS `Team Rating`
+        ROUND(AVG(`players`.`rating`)) AS `Team Rating`
     FROM
         (`teams`
         JOIN `players` ON ((`teams`.`teamid` = `players`.`team`)))
     GROUP BY `teams`.`teamid` , `teams`.`name` , `teams`.`league`
     ORDER BY 'Team Rating' DESC;
+    
     
 # team_stats view
     
