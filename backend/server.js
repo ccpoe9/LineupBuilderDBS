@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import * as dbRead from './database_reads.js';
 import * as dbWrite from './database_writes.js';
 import * as dbSort from './database_sorts.js';
+import * as dbDelete from './database_deletes.js';
 
 dotenv.config();
 
@@ -275,6 +276,16 @@ app.get("/teams/sort/byrating", async (req, res) => {
 app.get("/teams/sort/byrating/desc", async (req, res) => {
     const teams_sorted = await dbSort.sortTeamsByDESCRating()
     res.send(teams_sorted)
+})
+
+/* 
+    DB DELETES
+*/
+
+// Deletes the selected coach
+app.delete("/coaches", async (req, res) => {
+    const coach = await dbDelete.deleteCoach(req.query.coachid)
+    res.send(coach)
 })
 
 // Basic error handling
