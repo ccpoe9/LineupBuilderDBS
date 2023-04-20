@@ -58,7 +58,7 @@ app.get("/teams", async (req, res) => {
 
 // Get a json struct of all team data
 app.get("/teams/stats", async (req, res) => {
-    const teams = await dbRead.getAllTeamsWithStats()
+    const teams = await dbRead.getAllTeamsWithStats(req.query.orderBy, req.query.orderDir)
     res.send(teams)
 })
 
