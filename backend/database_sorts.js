@@ -59,7 +59,7 @@ export async function sortPlayersByDESCRating() {
 // position_id parameter: int from 0-3
 export async function sortPlayersByPosition(position_id) {
     const [rows] = await pool.query(`SELECT *
-    FROM lineupbuilder.players
+    FROM lineupbuilder.player_named_stats
     WHERE position = ?`, [position_id])
     return rows
 }

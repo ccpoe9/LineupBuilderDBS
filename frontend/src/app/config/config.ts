@@ -9,6 +9,7 @@ export class Config{
         TEAMSTATS : "/teams/stats",
         PLAYERS : "/players",
         PLAYERSTATS : "/players/stats",
-        COACHES : "/coaches"
+        COACHES : "/coaches",
+        PLAYERSORT : "/players/sort/byposition"
     }
 }

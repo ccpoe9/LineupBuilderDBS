@@ -60,6 +60,16 @@ export class FindComponent implements OnInit{
     }
   }
 
+  changePosition( position : number, positionName : string){
+    this.resetValues();
+    this.PositionSelected = positionName;
+    this.playerservice.getPlayerByPositions(position).
+    subscribe( data => {
+      this.players = data;
+      console.log(this.players);
+    })
+  }
+
   resetValues(){
   this.sortBySelected = 'A-Z';
   this.RatingSelected = 'Rating';
@@ -68,6 +78,14 @@ export class FindComponent implements OnInit{
   this.AssistsSelected = 'Assists';
   this.TacklesSelected = 'Tackles';
   this.SavesSelected = 'Saves';
+  }
+
+  getPositionName(position : number){
+    if(position == 0) return 'GK';
+    else if(position == 1) return 'DF';
+    else if(position == 2) return 'MF';
+    else if(position == 3) return 'FW';
+    else return '';
   }
   
 

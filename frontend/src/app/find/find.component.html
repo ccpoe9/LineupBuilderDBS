@@ -15,10 +15,10 @@
               {{PositionSelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">GK</a></li>
-              <li><a class="dropdown-item" href="#">DF</a></li>
-              <li><a class="dropdown-item" href="#">MF</a></li>
-              <li><a class="dropdown-item" href="#">FW</a></li>
+              <li><a class="dropdown-item" (click)="changePosition(0, 'GK')">GK</a></li>
+              <li><a class="dropdown-item" (click)="changePosition(1, 'DF')">DF</a></li>
+              <li><a class="dropdown-item" (click)="changePosition(2, 'MF')">MF</a></li>
+              <li><a class="dropdown-item" (click)="changePosition(3, 'FW')">FW</a></li>
             </ul>
         </div>
         <div class="btn-group">
@@ -87,7 +87,7 @@
                 <th scope="row">{{player.player_id}}</th>
                 <td>{{player.lastname}}</td>
                 <td>{{player.firstname}}</td>
-                <td>{{player.position}}</td>
+                <td>{{getPositionName(player.position)}}</td>
                 <td>{{player.rating}}</td>
                 <td>{{player.goals}}</td>
                 <td>{{player.assists}}</td>

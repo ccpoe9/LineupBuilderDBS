@@ -38,6 +38,16 @@ export class PlayerService {
       }));
   }
 
+  getPlayerByPositions(position_id : number){
+    this.queryParams = new HttpParams().set('position_id', position_id);
+    return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.PLAYERSORT, { params : this.queryParams}).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(err);
+      }));
+  }
+
+
 
   
 }

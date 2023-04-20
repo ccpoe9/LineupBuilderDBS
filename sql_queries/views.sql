@@ -36,6 +36,8 @@ CREATE VIEW `player_named_stats` AS
     SELECT 
         `p`.`firstname` AS `firstname`,
         `p`.`lastname` AS `lastname`,
+        `p`.`position` AS `position`,
+        `p`.`rating` AS `rating`,
         `p_s`.`player_id` AS `player_id`,
         `p_s`.`goals` AS `goals`,
         `p_s`.`assists` AS `assists`,
@@ -44,7 +46,7 @@ CREATE VIEW `player_named_stats` AS
     FROM
         (`players` `p`
         JOIN `player_stats` `p_s` ON ((`p`.`player_id` = `p_s`.`player_id`)))
-    ORDER BY `p`.`firstname` , `p`.`lastname`
+    ORDER BY `p`.`firstname` , `p`.`lastname`;
 
 
 DELIMITER //
@@ -88,7 +90,7 @@ CREATE PROCEDURE GetTeamsWithStats()
 BEGIN
 	SELECT 
         `p`.`team` AS `teamid`,
-        `t`.`name` AS `Team Name`,
+        `t`.`name` AS `TeamName`,
         SUM(`p_s`.`goals`) AS `TotalGoals`,
         SUM(`p_s`.`assists`) AS `TotalAssists`,
         SUM(`p_s`.`tackles`) AS `TotalTackles`,

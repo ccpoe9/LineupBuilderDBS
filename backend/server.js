@@ -221,7 +221,7 @@ app.get("/players/sort/byrating/desc", async (req, res) => {
 // Get a json struct of all players sorted by desired position
 // position_id parameter: int from 0-3
 app.get("/players/sort/byposition", async (req, res) => {
-    const { position_id } = req.body
+    const position_id = req.query.position_id;
     const players_sorted = await dbSort.sortPlayersByPosition(position_id)
     res.send(players_sorted)
 })
