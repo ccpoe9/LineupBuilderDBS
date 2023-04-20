@@ -38,6 +38,15 @@ export class TeamService {
       }));
   }
 
+  getMyTeam(teamid : number){
+    this.queryParams = new HttpParams().set('id', teamid);
+    return this.http.get<any[]>(Config.APIROOT+Config.APIURLS.TEAMPLAYERS, {params : this.queryParams}).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(err);
+      }));
+  }
+
   getAllTeamsWithStats(orderBy : string, orderDir : string){
     this.queryParams = new HttpParams().set('orderBy', orderBy).set('orderDir', orderDir);
     return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.TEAMSTATS, {params : this.queryParams}).pipe(

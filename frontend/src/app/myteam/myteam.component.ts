@@ -66,7 +66,9 @@ export class MyteamComponent {
 
   ngOnInit(){
       if(localStorage.getItem('teamid')){
-
+        this.teamCreated = true;
+        this.teamID = Number(localStorage.getItem('teamid'));
+        this.getMyTeam();
       }
       else {
         this.getFormations();
@@ -74,15 +76,10 @@ export class MyteamComponent {
       
   }
 
-  setAllItems(){
-      this.teamCreated = true;
-      this.coachSlot.Name = localStorage.getItem('coach') || '';
-      this.coachSlot.Team = localStorage.getItem('teams') || '';
-      this.setTeamFormation(Number(localStorage.getItem('formation')));
-      for(let i = 0; i < this.playerSlots.length ; i++){
-        this.playerSlots[i].playerName = localStorage.getItem('player' + i) || '';
-        this.playerSlots[i].Rating = Number(localStorage.getItem('rating' + i));
-      }
+  getMyTeam(){
+    this.teamservice.getMyTeam(this.teamID).subscribe( data => {
+      console.log(data);
+    })
   }
 
 
@@ -126,6 +123,8 @@ export class MyteamComponent {
 
   setCoachSlot(){
     this.coachSlot.Name = this.slotCoachName;
+    let id  = this.coaches.find( coach => this.slotCoachName.includes(coach.firstname)).coach_id;
+    this.playersevice.changeCoachTeam(id, this.teamID).subscribe();
   }
 
   setTeamFormation(formation : number){

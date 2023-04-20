@@ -59,6 +59,18 @@ export class PlayerService {
       }));
   }
 
+  changeCoachTeam(coach_id : number, team : number){
+    let body = {
+      coach_id : coach_id,
+      team : team
+    }
+    return this.http.put<any[]>(Config.APIROOT + Config.APIURLS.COACHES, body).pipe(
+      catchError((err) => {
+        console.error(err);
+        return throwError(err);
+      }));
+  }
+
 
 
   
