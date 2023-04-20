@@ -172,11 +172,19 @@ app.post("/coaches", async (req, res) => {
 })
 
 // Updates a player's currently set team
-// Will return a json struct with the id of the new team
+// Will return a json struct with the id of the updated player
 app.put("/players", async (req, res) => {
     const { player_id, team } = req.body
     const player = await dbWrite.updatePlayerTeam(player_id, team)
     res.status(201).send(player)
+})
+
+// Updates a coaches' currently set team
+// Will return a json struct with the id of the updated coach
+app.put("/coaches", async (req, res) => {
+    const { coachid, team } = req.body
+    const coach = await dbWrite.updateCoachTeam(coachid, team)
+    res.status(201).send(coach)
 })
 
 /* 

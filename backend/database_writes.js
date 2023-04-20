@@ -30,10 +30,19 @@ export async function createNewCoach(firstName, lastName, team) {
 }
 
 export async function updatePlayerTeam(player_id, team) {
-    const [result] = await pool.query(`
+    await pool.query(`
     UPDATE players
     SET team = ?
     WHERE player_id = ?
     `, [team, player_id])
     return dbRead.getPlayer(player_id)
+}
+
+export async function updateCoachTeam(coachid, team) {
+    await pool.query(`
+    UPDATE coaches
+    SET team = ?
+    WHERE coachid = ?
+    `, [team, coachid])
+    return dbRead.getCoach(coachid)
 }
