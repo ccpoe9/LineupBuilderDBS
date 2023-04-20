@@ -6,13 +6,13 @@
               {{sortBySelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" *ngIf="sortBySelected != 'A-Z'">A-Z</a></li>
-              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Z-A'">Z-A</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'A-Z'" (click)="changeSelected('lastname', 'ASC', 'A-Z')">A-Z</a></li>
+              <li><a class="dropdown-item" *ngIf="sortBySelected != 'Z-A'" (click)="changeSelected('lastname', 'DESC', 'Z-A')">Z-A</a></li>
             </ul>
         </div>
         <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Position
+              {{PositionSelected}}
             </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">GK</a></li>
@@ -23,47 +23,47 @@
         </div>
         <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Rating
+              {{RatingSelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">HIGH TO LOW</a></li>
-              <li><a class="dropdown-item" href="#">LOW TO HIGH</a></li>
+              <li><a class="dropdown-item" *ngIf="RatingSelected != 'HIGH TO LOW'" (click)="changeSelected('rating', 'DESC', 'HIGH TO LOW')">HIGH TO LOW</a></li>
+              <li><a class="dropdown-item" *ngIf="RatingSelected != 'LOW TO HIGH'" (click)="changeSelected('rating', 'ASC', 'LOW TO HIGH')">LOW TO HIGH</a></li>
             </ul>
         </div>
         <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Saves
+              {{GoalsSelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">HIGH TO LOW</a></li>
-              <li><a class="dropdown-item" href="#">LOW TO HIGH</a></li>
+              <li><a class="dropdown-item"  *ngIf="GoalsSelected != 'HIGH TO LOW'" (click)="changeSelected('goals', 'DESC', 'HIGH TO LOW')">HIGH TO LOW</a></li>
+              <li><a class="dropdown-item"  *ngIf="GoalsSelected != 'LOW TO HIGH'" (click)="changeSelected('goals', 'ASC', 'LOW TO HIGH')">LOW TO HIGH</a></li>
             </ul>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Tackles
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">HIGH TO LOW</a></li>
-              <li><a class="dropdown-item" href="#">LOW TO HIGH</a></li>
-            </ul>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            {{AssistsSelected}}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" *ngIf="AssistsSelected != 'HIGH TO LOW'" (click)="changeSelected('assists', 'DESC', 'HIGH TO LOW')">HIGH TO LOW</a></li>
+            <li><a class="dropdown-item" *ngIf="AssistsSelected!= 'LOW TO HIGH'" (click)="changeSelected('assists', 'ASC','LOW TO HIGH')">LOW TO HIGH</a></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            {{TacklesSelected}}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" *ngIf="TacklesSelected != 'HIGH TO LOW'"  (click)="changeSelected('tackles', 'DESC', 'HIGH TO LOW')">HIGH TO LOW</a></li>
+            <li><a class="dropdown-item" *ngIf="TacklesSelected != 'LOW TO HIGH'"  (click)="changeSelected('tackles', 'ASC', 'LOW TO HIGH')">LOW TO HIGH</a></li>
+          </ul>
         </div>
         <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Assists
+              {{SavesSelected}}
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">HIGH TO LOW</a></li>
-              <li><a class="dropdown-item" href="#">LOW TO HIGH</a></li>
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Goals
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">HIGH TO LOW</a></li>
-              <li><a class="dropdown-item" href="#">LOW TO HIGH</a></li>
+              <li><a class="dropdown-item" *ngIf="SavesSelected != 'HIGH TO LOW'" (click)="changeSelected('saves', 'DESC', 'HIGH TO LOW')">HIGH TO LOW</a></li>
+              <li><a class="dropdown-item" *ngIf="SavesSelected != 'LOW TO HIGH'" (click)="changeSelected('saves', 'ASC', 'LOW TO HIGH')">LOW TO HIGH</a></li>
             </ul>
         </div>
     </div>
@@ -72,8 +72,8 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">FirstName</th>
                 <th scope="col">LastName</th>
+                <th scope="col">FirstName</th>
                 <th scope="col">Position</th>
                 <th scope="col">Rating</th>
                 <th scope="col">Goals</th>
@@ -85,9 +85,9 @@
             <tbody>
               <tr *ngFor="let player of players">
                 <th scope="row">{{player.player_id}}</th>
-                <td>{{player.firstname}}</td>
                 <td>{{player.lastname}}</td>
-                <td>GK</td>
+                <td>{{player.firstname}}</td>
+                <td>{{player.position}}</td>
                 <td>{{player.rating}}</td>
                 <td>{{player.goals}}</td>
                 <td>{{player.assists}}</td>

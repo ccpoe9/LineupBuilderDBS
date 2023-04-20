@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Config } from './config/config';
 import { catchError, throwError } from 'rxjs';
@@ -10,6 +10,8 @@ export class PlayerService {
 
   constructor(private http : HttpClient) { }
 
+  queryParams: HttpParams = new HttpParams();
+  
   getAllPlayers(){
     return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.PLAYERS).pipe(
       catchError((err) => {
@@ -18,8 +20,10 @@ export class PlayerService {
       }));
   }
 
-  getAllPlayersWithStats(){
-    return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.PLAYERSTATS).pipe(
+  getAllPlayersWithStats(orderBy : string, orderDir : string){
+
+    this.queryParams = new HttpParams().set('orderBy', orderBy).set('orderDir', orderDir);
+    return this.http.get<any[]>(Config.APIROOT + Config.APIURLS.PLAYERSTATS, { params : this.queryParams}).pipe(
       catchError((err) => {
         console.error(err);
         return throwError(err);

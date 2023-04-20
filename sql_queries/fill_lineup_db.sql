@@ -1,3 +1,5 @@
+USE lineupbuilder;
+
 #
 # TABLE STRUCTURE FOR: leagues
 #
@@ -367,5 +369,3 @@ INSERT INTO `player_stats` (`player_id`, `goals`, `assists`, `saves`, `tackles`)
 INSERT INTO `player_stats` (`player_id`, `goals`, `assists`, `saves`, `tackles`) VALUES (98, 3, 1, 5, 9);
 INSERT INTO `player_stats` (`player_id`, `goals`, `assists`, `saves`, `tackles`) VALUES (99, 3, 2, 14, 7);
 INSERT INTO `player_stats` (`player_id`, `goals`, `assists`, `saves`, `tackles`) VALUES (100, 4, 5, 7, 4);
-
-

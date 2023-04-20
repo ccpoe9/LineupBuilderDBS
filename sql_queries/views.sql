@@ -1,4 +1,5 @@
 # team_ratings view
+USE lineupbuilder;
 
 CREATE VIEW `team_ratings` AS
     SELECT 
@@ -47,11 +48,16 @@ CREATE VIEW `player_named_stats` AS
 
 
 DELIMITER //
-CREATE PROCEDURE GetPlayerWithStats()
+CREATE PROCEDURE GetPlayerWithStats(
+	IN orderBy VARCHAR(20),
+    IN orderDir VARCHAR(20)
+    )
 BEGIN
 	SELECT 
         `p`.`firstname` AS `firstname`,
         `p`.`lastname` AS `lastname`,
+        `p`.`position` AS `position`,
+        `p`.`rating` AS `rating`,
         `p_s`.`player_id` AS `player_id`,
         `p_s`.`goals` AS `goals`,
         `p_s`.`assists` AS `assists`,
@@ -60,7 +66,19 @@ BEGIN
     FROM
         `players` `p`
         JOIN `player_stats` `p_s` ON `p`.`player_id` = `p_s`.`player_id`
-    ORDER BY `p`.`firstname` , `p`.`lastname`;
+    ORDER BY 
+		(CASE WHEN orderBy = 'lastname' AND orderDir='ASC' THEN lastname END) ASC,
+        (CASE WHEN orderBy = 'lastname' AND orderDir='DESC' THEN lastname END) DESC,
+        (CASE WHEN orderBy = 'rating' AND orderDir='ASC' THEN rating END) ASC,
+        (CASE WHEN orderBy = 'rating' AND orderDir='DESC' THEN rating END) DESC,
+        (CASE WHEN orderBy = 'goals' AND orderDir='ASC' THEN goals END) ASC,
+        (CASE WHEN orderBy = 'goals' AND orderDir='DESC' THEN goals END) DESC,
+        (CASE WHEN orderBy = 'assists' AND orderDir='ASC' THEN assists END) ASC,
+        (CASE WHEN orderBy = 'assists' AND orderDir='DESC' THEN assists END) DESC,
+        (CASE WHEN orderBy = 'tackles' AND orderDir='ASC' THEN tackles END) ASC,
+        (CASE WHEN orderBy = 'tackles' AND orderDir='DESC' THEN tackles END) DESC,
+        (CASE WHEN orderBy = 'saves' AND orderDir='ASC' THEN saves END) ASC,
+        (CASE WHEN orderBy = 'saves' AND orderDir='DESC' THEN saves END) DESC;
 END; //
 
 DELIMITER ;
@@ -84,5 +102,3 @@ BEGIN
 END; //
 
 DELIMITER ;
-
-

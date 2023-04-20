@@ -15,8 +15,8 @@ export async function getAllPlayers() {
     return rows
 }
 
-export async function getAllPlayersWithStats() {
-    const [rows] = await pool.query("CALL GetPlayerWithStats();")
+export async function getAllPlayersWithStats(orderBy, orderDir) {
+    const [rows] = await pool.query(`CALL GetPlayerWithStats('${orderBy}', '${orderDir}');`)
     return rows
 }
 

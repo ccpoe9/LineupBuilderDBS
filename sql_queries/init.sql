@@ -66,5 +66,3 @@ CREATE TABLE IF NOT EXISTS `lineupbuilder`.`player_stats` (
   UNIQUE KEY `player_id_UNIQUE` (`player_id`),
   CONSTRAINT `playerid_stats` FOREIGN KEY (`player_id`) REFERENCES `players` (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-

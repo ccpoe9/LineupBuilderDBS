@@ -26,7 +26,7 @@ app.get("/players", async (req, res) => {
 
 // Get a json struct of all player data
 app.get("/players/stats", async (req, res) => {
-    const players = await dbRead.getAllPlayersWithStats()
+    const players = await dbRead.getAllPlayersWithStats(req.query.orderBy, req.query.orderDir)
     res.send(players)
 })
 
